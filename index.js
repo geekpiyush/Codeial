@@ -1,34 +1,39 @@
 const express =  require('express');
+// require cookie-parser
+const cookieParser = require('cookie-parser');
 const port = 8000;
 const app = express();
 
 // require express-ejs-layouts
-const expressLayouts = require('express-ejs-layouts')
+const expressLayouts = require('express-ejs-layouts');
 
 // require db 
-const db = require('./config/mongoose')
+const db = require('./config/mongoose');
+
+// use cookie parser
+app.use(express.urlencoded());
+app.use(cookieParser());
 
 // use static files for app like css js images
-app.use(express.static('./assets'))
-
+app.use(express.static('./assets'));
 app.use(expressLayouts);
 
 // extract style and scripts form the sub pages into the layouts
-app.set('layout extractStyles',true)
-app.set('layout extractScripts',true)
+app.set('layout extractStyles',true);
+app.set('layout extractScripts',true);
 
 // set view engine ejs
 app.set("view engine", "ejs");
 app.set("views", "./views");
 
 // require router for routing
-app.use("/",require('./routes/home.js'))
+app.use("/",require('./routes/home.js'));
 
 app.listen(port,function(err)
 {
     if(err)
     {
-        console.log('there is an error')
+        console.log('there is an error');
     }
-    console.log(`server is up on port number ${port}`)
+    console.log(`server is up on port number ${port}`);
 })
