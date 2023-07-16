@@ -1,1 +1,23 @@
-<h1>Page Header</h1>
+    <header id="main-header">
+        <nav class="navbar" style="background-color: #e3f2fd;">
+            <h1 class="display-6">Codial</h1>
+
+            <!-- creating a div for buttons and user details in navbar -->
+            <div class="buttons-section">
+                <% if(locals.user){%>
+                    <i class="fa-solid fa-user fa-lg"></i>
+                    <span><%=user.name%></span>
+
+                    <button><a href="/users/sign-out">Sign-out</a></button>
+
+                    <%}else{%>
+                        <button type="submit"><a href="/users/sign-in">Sign-in</a></button>
+
+                        <button type="submit"><a href="/users/sign-up">Sign-up</a></button>
+                        <%}%>
+            </div>
+        </nav>
+    </header>
+
+ 
+

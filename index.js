@@ -10,6 +10,17 @@ const expressLayouts = require('express-ejs-layouts');
 // require db 
 const db = require('./config/mongoose');
 
+// require express-session use for session cookies
+const session = require('express-session');
+
+// require passport for auth
+const passport = require('passport');
+const passportLocal = require('./config/passport-local-auth');
+
+// require connect-mongo
+// const MongoStore = require('connect-mongo')(session);
+
+
 // use cookie parser
 app.use(express.urlencoded());
 app.use(cookieParser());
@@ -25,6 +36,29 @@ app.set('layout extractScripts',true);
 // set view engine ejs
 app.set("view engine", "ejs");
 app.set("views", "./views");
+
+// mongoStore is used to store the session cookie in the db
+
+app.use(session({
+    name:'Codial',
+    secret:'something',
+    saveUninitialized:false,
+    resave:false,
+    cookie:
+    {
+        maxAge:(1000 * 60 * 100)
+    }
+    // store: new MongoStore({
+    //     mongooseConnection:db,
+    //     autoRemove:'disabled',
+    // }
+    // )
+}))
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(passport.setAuthenticatedUser);
 
 // require router for routing
 app.use("/",require('./routes/home.js'));

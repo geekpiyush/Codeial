@@ -12,6 +12,10 @@ module.exports.profile = function(req,res)
 // creating an acction for sing-up page
 module.exports.singUp = function(req,res)
 {
+  if(req.isAuthenticated())
+  {
+    return res.redirect('/users/profile')
+  }
     return res.render('sing-up',
     {
         title:'Codial | Sing-up'
@@ -22,7 +26,11 @@ module.exports.singUp = function(req,res)
 
 module.exports.singIn = function(req,res)
 {
-    return res.render('sing-in',
+  if(req.isAuthenticated())
+  {
+    return res.redirect('/users/profile')
+  } 
+  return res.render('sing-in',
     {
         title:'Codial | Sing-in'
     })
@@ -54,5 +62,17 @@ module.exports.create = async function (req, res) {
 
 module.exports.createSession = function(req,res)
 {
-    // toda later
+    return res.redirect('/users/profile')
+}
+
+module.exports.destroySession = function(req,res)
+{
+    req.logout(function(err)
+    {
+      if(err)
+      {
+        console.log(err)
+      }
+    });
+    return res.redirect('/')
 }
