@@ -8,4 +8,22 @@
         <input type="submit" value="Post">
     </form>
 </section>
+<!-- creating an section for posts -->
+<section id="Post-List">
+    <div id="post-list-container">
+        <ul>
+            <% for(post of posts){%>
+                <li>
+                    <%= post.content%>
+                    <br>
+                    <small>
+                     <%=post.user.name%>
+                     <!-- <%=post.user.email%>
+                     <%=post.user.password%> -->
+                    </small>
+                </li>
+                <%}%>
+        </ul>
+    </div>
+</section>
 
