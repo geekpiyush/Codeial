@@ -2,11 +2,12 @@
 
 <section id="feed-post">
     <h4>Posts</h4>
-
+    <% if(locals.user){%>
     <form action="/post/create" method="post" id="new-post-form">
         <textarea name="content" id="new-post" cols="50" rows="8" placeholder="write your post"></textarea>
         <input type="submit" value="Post">
     </form>
+    <%}%>
 </section>
 <!-- creating an section for posts -->
 <section id="Post-List">
@@ -14,15 +15,43 @@
         <ul>
             <% for(post of posts){%>
                 <li>
-                    <%= post.content%>
+                    <p>
+                        <%= post.content%>
                     <br>
                     <small>
+                        <i class="fa-solid fa-user fa-lg"></i>
                      <%=post.user.name%>
                      <!-- <%=post.user.email%>
                      <%=post.user.password%> -->
                     </small>
+                    </p>
+                    <div class="post-comment">
+                        <%if(locals.user){%>
+                     <form action="/comments/create" method="post">
+                        <input type="text" name="content" placeholder="write your comment">
+                        <input type="hidden" name="post" value="<%=post._id%>">
+                        <input type="submit" value="Comment">
+                     </form>
+                     <%}%>
+                     <div class="comment-list">
+                        <ul id="post-comment-<%=post._id%>">
+                            <%for(comment of post.comments){%>
+                                <p>
+                                    <span>comment:</span>
+                                    <%=comment.content%>
+                                    <br>
+                                    <small>
+                            <i class="fa-solid fa-user fa-lg"></i>
+                            <%=comment.user.name%>
+                            </small>
+                                </p>
+                                <%}%>
+                        </ul>
+                     </div>
+                    </div>
                 </li>
                 <%}%>
+
         </ul>
     </div>
 </section>
