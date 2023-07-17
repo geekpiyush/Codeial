@@ -62,7 +62,7 @@ module.exports.create = async function (req, res) {
 
 module.exports.createSession = function(req,res)
 {
-    return res.redirect('/users/profile')
+    return res.redirect('/')
 }
 
 module.exports.destroySession = function(req,res)
