@@ -1,11 +1,11 @@
 <li>    
-    <p>
+    <p>    
 <%if(locals.user && locals.user.id == comment.user.id){%>            
 <a href="/comments/destroy/<%=comment.id %>">remove</a>
 <%}%>
-       <span>comment:</span>
-       <%=comment.content%>
-       <br>
-       <small><i class="fa-solid fa-user fa-lg"></i><%=comment.user.name%></small>
-   </p>
-   </li>
+<span>comment:</span>
+<%=comment.content%>
+   <br>
+<small><i class="fa-solid fa-user fa-lg"></i><%=comment.user.name%></small>
+</p>
+</li>

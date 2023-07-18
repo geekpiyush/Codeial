@@ -1,13 +1,21 @@
 // require user from models
 const User = require('../model/user')
 
-module.exports.profile = function(req,res)
-{
-    return res.render('users',
-    {
-        title:'Codial | Users'
-    })
-}
+module.exports.profile = async function (req, res) {
+  try {
+    const user = await User.findById(req.params.id).exec();
+
+    return res.render('users', {
+      title: 'Codial | Users',
+      profile_user: user
+    });
+  } catch (err) {
+    console.log('An error occurred:', err);
+    return res.status(500).json({ error: 'An error occurred' });
+  }
+};
+
+
 
 // creating an acction for sing-up page
 module.exports.singUp = function(req,res)

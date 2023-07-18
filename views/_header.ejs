@@ -6,7 +6,7 @@
             <div class="buttons-section">
                 <% if(locals.user){%>
                     <i class="fa-solid fa-user fa-lg"></i>
-                    <a href="/users/profile"><%=user.name%></a>
+                    <a href="/users/profile/<%=user.id%>"><%=user.name%></a>
 
                     <button><a href="/users/sign-out">Sign-out</a></button>
 
