@@ -4,9 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%=title%></title>
+    <!-- this link for noty-js cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
+     <!-- this script for noty-js cdn -->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
     <!-- bootstrap cdn link -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
+    
     <link rel="stylesheet" href="/css/layout.css">
     <%- style%>
 </head>
@@ -14,11 +18,38 @@
     <%- include('_header')%>
 
         <%- body %>
-
+       
     <%- include('_footer')%>
+
+   
     <script src="https://kit.fontawesome.com/11e39c886c.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
     <%-script%>
+    <script>
+        <%if(flash.success && flash.success.length >0){%>
+            new Noty(
+                {
+                    theme:'relax',
+                    text:"<%=flash.success%>",
+                    type:'success',
+                    layout:'topRight',
+                    timeout:1500
+                }
+            ).show();
+
+            // now creating for error
+            <%if(flash.error && flash.error.length >0){%>
+            new Noty(
+                {
+                    theme:'relax',
+                    text:"<%=flash.error%>",
+                    type:'error',
+                    layout:'topRight',
+                    timeout:1500
+                }
+            ).show();
+            <%}%>
+    </script>
 </body>
 </html>

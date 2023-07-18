@@ -70,20 +70,31 @@ module.exports.create = async function (req, res) {
 
 module.exports.createSession = function(req,res)
 {
-    return res.redirect('/')
+  req.flash('success','Log in Successfully..');
+  
+  return res.redirect('/')
 }
 
-module.exports.destroySession = function(req,res)
+module.exports.destroySession = function (req, res)
 {
+  try
+  {
     req.logout(function(err)
     {
       if(err)
       {
-        console.log(err)
+        console.log('there is some error',err)
       }
-    });
-    return res.redirect('/')
-}
+      req.flash('success','You have logged out successfully')
+      return res.redirect('/')
+    })
+  }catch(err)
+  {
+    console.log("There is some error occurs",err)
+
+  }
+}  
+
 
 // creating an action for update user profile
 
@@ -91,6 +102,7 @@ module.exports.update = async function (req, res) {
   try {
     if (req.user.id == req.params.id) {
       await User.findByIdAndUpdate(req.params.id, req.body).exec();
+      req.flash('success','Update Done Successfully')
       return res.redirect('back');
     } else {
       return res.status(401).send('Unauthorized');

@@ -1,4 +1,8 @@
-<h1>Welcome To Home Page</h1>
+<link rel="stylesheet" href="/css/home.css">
+
+<h3>Codial | Home Page</h3>
+<div id="home-container">
+
 
 <section id="feed-post">
     <h4>Posts</h4>
@@ -8,8 +12,7 @@
         <input type="submit" value="Post">
     </form>
     <%}%>
-</section>
-<!-- creating an section for posts -->
+    <!-- creating an section for posts -->
 <section id="Post-List">
     <div id="post-list-container">
         <ul>
@@ -18,16 +21,21 @@
             <%-include('_post')-%>
 
         <%}%>
-
+        
         </ul>
     </div>
+</section>
+
 </section>
 
 <section id="users-list">
     <h4>Friends</h4>
     <%for(u of all_users){%>
         <p>
+            <i class="fa-solid fa-user-group fa-lg"></i>
             <a href="/users/profile/<%=u.id%>"><%=u.name%></a>
         </p>
         <%}%>
+        
 </section>
+</div>

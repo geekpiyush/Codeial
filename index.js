@@ -25,6 +25,10 @@ const passportLocal = require('./config/passport-local-auth');
 app.use(express.urlencoded());
 app.use(cookieParser());
 
+// require flash msg
+const flash = require('connect-flash');
+const customMware = require('./config/middleware')
+
 // use static files for app like css js images
 app.use(express.static('./assets'));
 app.use(expressLayouts);
@@ -59,6 +63,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(passport.setAuthenticatedUser);
+
+// using flash
+app.use(flash());
+app.use(customMware.setFlash);
 
 // require router for routing
 app.use("/",require('./routes/home.js'));
