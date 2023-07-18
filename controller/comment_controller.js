@@ -22,3 +22,30 @@ module.exports.create = async function (req, res) {
     return res.status(500).json({ error: 'An error occurred' });
   }
 };
+
+module.exports.destroy = async function(req,res)
+{
+  try
+  {
+    const comment = await Comments.findById(req.params.id);
+      if(comment.user == req.user.id)
+      {
+        let postID = comment.post;
+        await comment.deleteOne();
+
+       Post.findByIdAndUpdate(postID,{$pull:{comments:req.params.id}})
+       .then()
+       {
+        return res.redirect('back')
+       }
+      }
+      else
+      {
+        return res.redirect('back')
+      }
+     
+  } catch (err)
+  {
+    console.log('An error occurred:', err);
+    return res.status(500).json({ error: 'An error occurred' });  }
+} 
