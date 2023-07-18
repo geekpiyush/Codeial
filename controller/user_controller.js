@@ -84,3 +84,19 @@ module.exports.destroySession = function(req,res)
     });
     return res.redirect('/')
 }
+
+// creating an action for update user profile
+
+module.exports.update = async function (req, res) {
+  try {
+    if (req.user.id == req.params.id) {
+      await User.findByIdAndUpdate(req.params.id, req.body).exec();
+      return res.redirect('back');
+    } else {
+      return res.status(401).send('Unauthorized');
+    }
+  } catch (err) {
+    console.log('An error occurred:', err);
+    return res.status(500).json({ error: 'An error occurred' });
+  }
+};
