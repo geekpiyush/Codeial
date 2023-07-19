@@ -9,11 +9,13 @@ module.exports.create = async function(req, res) {
       content: req.body.content,
       user: req.user._id
     });
-
+      req.flash('success',"Post Published")
     return res.redirect('back');
+
   } catch (err) {
     console.log('An error occurred:', err);
-    return res.status(500).json({ error: 'An error occurred' });
+    req.flash('error',err)
+    return res.redirect('back')
   }
 };
 
@@ -28,13 +30,16 @@ module.exports.destroy = async function (req, res) {
     if (post.user.toString() === req.user.id) {
       await post.deleteOne();
       await Comments.deleteMany({ post: req.params.id }).exec();
-    } else {
+      req.flash('success',"Post and Associated Comments Deleted")
+    }
+    else {
       throw new Error('Unauthorized access');
     }
 
     res.redirect('back');
   } catch (err) {
     console.log('An error occurred:', err);
+    req.flash('error',err)
     return res.status(500).json({ error: 'An error occurred' });
   }
 };

@@ -14,11 +14,13 @@ module.exports.create = async function (req, res) {
 
       post.comments.push(comment);
       await post.save();
+      req.flash('success',"Comment Added")
     }
 
     res.redirect('/');
   } catch (err) {
     console.log('An error occurred:', err);
+
     return res.status(500).json({ error: 'An error occurred' });
   }
 };
@@ -36,6 +38,7 @@ module.exports.destroy = async function(req,res)
        Post.findByIdAndUpdate(postID,{$pull:{comments:req.params.id}})
        .then()
        {
+        req.flash('success','Comment Deleted')
         return res.redirect('back')
        }
       }
