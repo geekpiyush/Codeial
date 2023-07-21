@@ -98,17 +98,26 @@ module.exports.destroySession = function (req, res)
 
 // creating an action for update user profile
 
-module.exports.update = async function (req, res) {
-  try {
-    if (req.user.id == req.params.id) {
-      await User.findByIdAndUpdate(req.params.id, req.body).exec();
-      req.flash('success','Update Done Successfully')
-      return res.redirect('back');
-    } else {
+module.exports.update = async function (req, res)
+ {
+  if (req.user.id == req.params.id)
+  {
+    try {
+      let user = await User.findById(req.params.id);
+        User.uploadedAvatar(req,res,function(err)
+        {
+          if(err){console.log("multer-error",err);}
+          console.log(req.file)
+
+        })
+
+    } catch (err) {
+      console.log('An error occurred:', err);
+      return res.status(500).json({ error: 'An error occurred' });
+    }
+  }
+  else 
+    {
       return res.status(401).send('Unauthorized');
     }
-  } catch (err) {
-    console.log('An error occurred:', err);
-    return res.status(500).json({ error: 'An error occurred' });
-  }
-};
+  } 

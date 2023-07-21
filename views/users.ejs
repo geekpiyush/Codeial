@@ -13,7 +13,7 @@
             </div>
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
 
-              <form action="/users/update/<%=profile_user.id%>" method="post">
+              <form action="/users/update/<%=profile_user.id%>" method="post" enctype="multipart/form-data">
                 
                 <!-- Email input -->
                 <div class="form-outline mb-4">
@@ -28,7 +28,13 @@
                     placeholder="Your Name" name="name" value="<%=profile_user.name%>"/>
                   <label class="form-label" for="form3Example4">Name</label>
                 </div>
-      
+                
+                 <!-- profile input -->
+                 <div class="form-outline mb-4">
+                  <input type="file" id="form3Example3" class="form-control form-control-lg" placeholder="Profile Pic" name="avatar"/>
+                  <label class="form-label" for="form3Example3">Profile Pic</label>
+                </div>
+
                 <div class="text-center text-lg-start mt-4 pt-2">
                   <button type="submit" class="btn btn-primary btn-lg"
                     style="padding-left: 2.5rem; padding-right: 2.5rem;">Update</button>
