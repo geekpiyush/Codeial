@@ -31,6 +31,9 @@ const customMware = require('./config/middleware')
 
 // use static files for app like css js images
 app.use(express.static('./assets'));
+
+// make the upload path available to the browser
+app.use('/uploads',express.static(__dirname + '/uploads'));
 app.use(expressLayouts);
 
 // extract style and scripts form the sub pages into the layouts

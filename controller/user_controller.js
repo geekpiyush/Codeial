@@ -108,7 +108,14 @@ module.exports.update = async function (req, res)
         {
           if(err){console.log("multer-error",err);}
           console.log(req.file)
-
+          user.name = req.body.name;
+          user.email = req.body.email;
+          if(req.file)
+          {
+            user.avatar = User.avatarPath + '/' + req.file.filename;
+          }
+          user.save();
+          return res.redirect("back")
         })
 
     } catch (err) {
