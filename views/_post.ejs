@@ -1,6 +1,5 @@
 <li id="post-<%=post._id%>">
-    <p>
-        
+    <p>  
         <%= post.content%>
     <br>
     <small>
@@ -10,7 +9,7 @@
      <%=post.user.password%> -->
     </small>
     <%if(locals.user && locals.user.id == post.user.id){%>
-        <a class="post-delete-button" href="/post/destroy/<%=post.id %>">remove</a>
+        <a class="post-delete-button" href="/post/destroy/<%=post._id %>">remove</a>
         <%}%>
     </p>
     <div class="post-comment">
